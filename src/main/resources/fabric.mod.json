@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "biomeoverhaul",
+  "version": "1.0.0",
+  
+  "name": "BiomeOverhaul 2",
+  "description": "World Generation mod for Minecraft 1.16 / Fabric",
+  "authors": [
+    "Valoeghese"
+  ],
+  
+  "license": "GPLv3",
+  
+  "environment": "*",
+  
+  "entrypoints": {
+    "main": [
+       "tk.valoeghese.biomeoverhaul.BiomeOverhaul"
+    ]
+  },
+  
+  "requires": {
+    "fabricloader": ">=0.4.0"
+  },
+  
+  "mixins": [
+    "biomeoverhaul.mixins.json"
+  ]
+}

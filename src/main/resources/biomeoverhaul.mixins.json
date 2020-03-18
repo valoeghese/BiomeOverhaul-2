@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "tk.valoeghese.biomeoverhaul.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "server": [
+    "MixinLevelGeneratorType"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
