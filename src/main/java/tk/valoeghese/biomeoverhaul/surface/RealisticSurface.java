@@ -13,8 +13,8 @@ import tk.valoeghese.worldcomet.api.noise.Noise;
 import tk.valoeghese.worldcomet.api.noise.OctaveOpenSimplexNoise;
 import tk.valoeghese.worldcomet.api.surface.Surface;
 
-public class GenericSurface extends Surface {
-	public GenericSurface(Identifier id) {
+public class RealisticSurface extends Surface {
+	public RealisticSurface(Identifier id) {
 		super(id);
 	}
 

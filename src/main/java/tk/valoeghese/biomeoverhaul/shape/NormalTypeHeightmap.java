@@ -12,7 +12,7 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		INSTANCE = this;
 		Random rand = new Random(seed);
 
-		this.continentHeightmap = new OctaveOpenSimplexNoise(rand, 3, 1850.0, 45, 30);
+		this.continentHeightmap = new OctaveOpenSimplexNoise(rand, 3, 1650.0, 45, 30);
 		// old values 2 430.0 90.0
 		this.mountainsHeightmap = new MountainsNoise(rand, 3, 480.0, 8.0, 100.0, 0.5, 0.5);
 		this.detailHeightmap = new OctaveOpenSimplexNoise(rand, 3, 80.0, 1.0);

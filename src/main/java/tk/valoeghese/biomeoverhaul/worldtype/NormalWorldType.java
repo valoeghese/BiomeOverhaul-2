@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import tk.valoeghese.biomeoverhaul.shape.NormalTypeHeightmap;
+import tk.valoeghese.biomeoverhaul.surface.NormalSurfaces;
 import tk.valoeghese.biomeoverhaul.shape.CliffsDepthmapFunction;
 import tk.valoeghese.worldcomet.api.WorldComet;
 import tk.valoeghese.worldcomet.api.populator.FeaturePopulator;
@@ -36,7 +37,7 @@ final class NormalWorldType {
 				.build();
 
 		SurfaceIdMap surfaceIdMap = SurfaceIdMap.builder()
-				.build();
+				.build(NormalSurfaces.DEFAULT);
 
 		FractalLongFunction ground = FractalLongFunction.builder((rand, x, z) -> 0)
 				.build();
