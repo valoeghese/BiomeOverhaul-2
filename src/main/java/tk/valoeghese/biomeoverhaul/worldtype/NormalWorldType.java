@@ -5,6 +5,7 @@ import java.util.function.LongFunction;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.world.gen.feature.Feature;
+import tk.valoeghese.biomeoverhaul.shape.OverhangDepthmapFunction;
 import tk.valoeghese.worldcomet.api.WorldComet;
 import tk.valoeghese.worldcomet.api.populator.FeaturePopulator;
 import tk.valoeghese.worldcomet.api.populator.StructureGenSettings;
@@ -27,7 +28,8 @@ final class NormalWorldType {
 				.build();
 
 		LongFunction<Depthmap> shape = seed -> Depthmap.builder()
-				.baseHeight(50.0)
+				.baseHeight(63.0)
+				.addDepthmap(new OverhangDepthmapFunction(seed))
 				.build();
 
 		SurfaceIdMap surfaceIdMap = SurfaceIdMap.builder()
