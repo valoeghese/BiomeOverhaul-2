@@ -20,4 +20,12 @@ public class Options {
 			return new Options(this);
 		}
 	}
+
+	public static final Options INSTANCE;
+
+	static {
+		INSTANCE = new Options.Builder()
+				.customBiomes(false)
+				.build();
+	}
 }
