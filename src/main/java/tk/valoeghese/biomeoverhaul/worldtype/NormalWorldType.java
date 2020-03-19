@@ -4,7 +4,9 @@ import java.util.function.LongFunction;
 
 import com.google.common.collect.ImmutableSet;
 
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
+import tk.valoeghese.biomeoverhaul.shape.NormalTypeHeightmap;
 import tk.valoeghese.biomeoverhaul.shape.OverhangDepthmapFunction;
 import tk.valoeghese.worldcomet.api.WorldComet;
 import tk.valoeghese.worldcomet.api.populator.FeaturePopulator;
@@ -28,7 +30,8 @@ final class NormalWorldType {
 				.build();
 
 		LongFunction<Depthmap> shape = seed -> Depthmap.builder()
-				.baseHeight(63.0)
+				.baseHeight(SEA_LEVEL)
+				.addHeightmap(new NormalTypeHeightmap(seed))
 				.addDepthmap(new OverhangDepthmapFunction(seed))
 				.build();
 
@@ -51,6 +54,6 @@ final class NormalWorldType {
 				.build();
 
 		WorldCometChunkGeneratorType<?> cgt = WorldComet.createChunkGeneratorType(settings, shape, surfaceProviderFactory, populator);
-		return WorldComet.createWorldType("tbo_normal", cgt, ImmutableSet.of());
+		return WorldComet.createWorldType("tbo_normal", cgt, ImmutableSet.of(Biomes.PLAINS, Biomes.OCEAN));
 	}
 }

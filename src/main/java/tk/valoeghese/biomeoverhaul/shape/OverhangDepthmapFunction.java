@@ -9,7 +9,7 @@ import tk.valoeghese.worldcomet.api.terrain.function.DepthmapFunction;
 public class OverhangDepthmapFunction implements DepthmapFunction {
 	public OverhangDepthmapFunction(long seed) {
 		this.rand = new Random(seed + 6);
-		this.noise = new OctaveOpenSimplexNoise(this.rand, 2, 40).stretch3DY(5.0 / 40.0);
+		this.noise = new OctaveOpenSimplexNoise(this.rand, 2, 100).stretch3DY(5.0 / 100.0);
 	}
 
 	private final Noise noise;
@@ -17,6 +17,7 @@ public class OverhangDepthmapFunction implements DepthmapFunction {
 
 	@Override
 	public double getHeight(int x, int y, int z) {
-		return this.noise.sample(x, y, z) > 0.2D ? rand.nextInt(3) + 5 : 0;
+		double sample = this.noise.sample(x, y, z);
+		return sample > 0.2D ? 3 * sample + 5 : 0;
 	}
 }
