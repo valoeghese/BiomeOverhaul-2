@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import tk.valoeghese.biomeoverhaul.shape.NormalTypeHeightmap;
-import tk.valoeghese.biomeoverhaul.shape.OverhangDepthmapFunction;
+import tk.valoeghese.biomeoverhaul.shape.CliffsDepthmapFunction;
 import tk.valoeghese.worldcomet.api.WorldComet;
 import tk.valoeghese.worldcomet.api.populator.FeaturePopulator;
 import tk.valoeghese.worldcomet.api.populator.StructureGenSettings;
@@ -32,7 +32,7 @@ final class NormalWorldType {
 		LongFunction<Depthmap> shape = seed -> Depthmap.builder()
 				.baseHeight(SEA_LEVEL)
 				.addHeightmap(new NormalTypeHeightmap(seed))
-				.addDepthmap(new OverhangDepthmapFunction(seed))
+				.addDepthmap(new CliffsDepthmapFunction(seed))
 				.build();
 
 		SurfaceIdMap surfaceIdMap = SurfaceIdMap.builder()
