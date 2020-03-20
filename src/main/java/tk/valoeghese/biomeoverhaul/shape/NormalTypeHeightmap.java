@@ -14,12 +14,13 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 
 		this.continentHeightmap = new OctaveOpenSimplexNoise(rand, 2, 1580.0, 52, 38);
 		this.mountainsHeightmap = new MountainsNoise(rand, 3, 560.0, 8.0, 100.0, 0.5, 0.5);
-		this.detailHeightmap = new OctaveOpenSimplexNoise(rand, 3, 80.0);
+		this.hillsHeightmap = new OctaveOpenSimplexNoise(rand, 3, 410.0, 35, 1);
+		this.detailHeightmap = new OctaveOpenSimplexNoise(rand, 3, 70.0);
 		this.detailScaleHeightmap = new OctaveOpenSimplexNoise(rand, 1, 256.0);
 	}
 
 	private final Noise
-	continentHeightmap, mountainsHeightmap,
+	continentHeightmap, mountainsHeightmap, hillsHeightmap,
 	detailHeightmap, detailScaleHeightmap;
 
 	public boolean isMountain(int x, int z) {
@@ -38,6 +39,8 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		double result = this.continentHeightmap.sample(x, z);
 		// mountains
 		result += this.mountainsHeightmap.sample(x, z);
+		// hills
+		result += this.hillsHeightmap.sample(x, z);
 
 		// detail
 		double scale = 1 + 9 * (this.detailScaleHeightmap.sample(x, z) + 1.0);

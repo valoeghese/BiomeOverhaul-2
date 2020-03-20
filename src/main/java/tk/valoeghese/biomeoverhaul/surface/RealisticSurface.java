@@ -55,37 +55,51 @@ public class RealisticSurface extends Surface {
 
 			// update blocks
 			switch (y) {
-			case 200:
+			case 192:
 				this.topBlock = rand.nextInt(3) == 0 ? STONE : SNOW_BLOCK;
 				this.underBlock = STONE;
-			case 170:
+				break;
+			case 158:
 				this.topBlock = rand.nextInt(4) == 0 ? COBBLESTONE : STONE;
 				this.underBlock = this.topBlock;
 				this.underwaterBlock = GRAVEL;
-			case 138:
+				break;
+			case 145:
 				if (mountain) {
 					boolean bool = noise > 0.0;
-					this.topBlock = bool ? COBBLESTONE : COARSE_DIRT;
-					this.underBlock = bool ? STONE : DIRT;
+					this.topBlock = bool ? COBBLESTONE : (rand.nextInt(5) == 0 ? COBBLESTONE : COARSE_DIRT);
 				} else {
 					this.topBlock = COARSE_DIRT;
-					this.underBlock = DIRT;
 				}
-			case 115:
+				this.underBlock = DIRT;
+				break;
+			case 135:
 				if (mountain) {
-					boolean bool = rand.nextInt(5) == 0;
-					this.topBlock = bool ? COBBLESTONE : COARSE_DIRT;
-					this.underBlock = bool ? STONE : DIRT;
+					this.topBlock = rand.nextInt(5) == 0 ? COBBLESTONE : COARSE_DIRT;
+				}
+				this.underBlock = DIRT;
+			case 120:
+				if (mountain) {
+					if (noise > 0.4) {
+						this.topBlock = GRASS_BLOCK;
+					} else {
+						boolean bool = rand.nextInt(10) == 0;
+						this.topBlock = bool ? COBBLESTONE : COARSE_DIRT;
+					}
+					this.underBlock = DIRT;
 				} else {
 					this.topBlock = GRASS_BLOCK;
 					this.underBlock = DIRT;
 				}
-			case 85:
+				break;
+			case 95:
 				this.topBlock = GRASS_BLOCK;
 				this.underBlock = DIRT;
 				this.underwaterBlock = SAND;
+				break;
 			case 62:
 				this.underwaterBlock = GRAVEL;
+				break;
 			default:
 				break;
 			}

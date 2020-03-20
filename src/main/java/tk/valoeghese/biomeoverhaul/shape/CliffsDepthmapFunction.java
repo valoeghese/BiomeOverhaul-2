@@ -9,7 +9,7 @@ import tk.valoeghese.worldcomet.api.terrain.function.DepthmapFunction;
 public class CliffsDepthmapFunction implements DepthmapFunction {
 	public CliffsDepthmapFunction(long seed) {
 		this.rand = new Random(seed + 6);
-		this.noise = new OctaveOpenSimplexNoise(this.rand, 2, 100).stretch3DY(5.0 / 100.0);
+		this.noise = new OctaveOpenSimplexNoise(this.rand, 2, 180.0).stretch3DY(5.0 / 180.0);
 	}
 
 	private final Noise noise;

@@ -15,7 +15,7 @@ public final class MountainsNoise extends OctaveNoise {
 		this.clamp = 1D / (1D - (1D / Math.pow(2, octaves)));
 
 		for (int i = 0; i < octaves; ++i) {
-			samplers[i] = new RidgedNoise(new OpenSimplexNoise(rand.nextLong()), shift);
+			samplers[i] = new RidgedNoise(new OpenSimplexNoise(rand), shift);
 		}
 
 		this.setSpread(spread);
