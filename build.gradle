@@ -29,6 +29,8 @@ dependencies {
 	
 	modImplementation "tk.valoeghese:WorldComet:${project.worldcomet_version}"
 	include "tk.valoeghese:WorldComet:${project.worldcomet_version}"
+	modImplementation "tk.valoeghese:ZoesteriaConfig:1.2.0"
+	include "tk.valoeghese:ZoesteriaConfig:1.2.0"
 }
 
 processResources {
