@@ -12,11 +12,10 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		INSTANCE = this;
 		Random rand = new Random(seed);
 
-		this.continentHeightmap = new OctaveOpenSimplexNoise(rand, 3, 1650.0, 45, 30);
-		// old values 2 430.0 90.0
-		this.mountainsHeightmap = new MountainsNoise(rand, 3, 480.0, 8.0, 100.0, 0.5, 0.5);
-		this.detailHeightmap = new OctaveOpenSimplexNoise(rand, 3, 80.0, 1.0);
-		this.detailScaleHeightmap = new OctaveOpenSimplexNoise(rand, 1, 256.0, 1.0);
+		this.continentHeightmap = new OctaveOpenSimplexNoise(rand, 2, 1580.0, 52, 38);
+		this.mountainsHeightmap = new MountainsNoise(rand, 3, 560.0, 8.0, 100.0, 0.5, 0.5);
+		this.detailHeightmap = new OctaveOpenSimplexNoise(rand, 3, 80.0);
+		this.detailScaleHeightmap = new OctaveOpenSimplexNoise(rand, 1, 256.0);
 	}
 
 	private final Noise
@@ -29,7 +28,7 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 
 	public boolean canAddCliffs(int x, int z) {
 		if (this.mountainsHeightmap.sample(x, z) > 0.0) return true;
-		if (this.detailScaleHeightmap.sample(x, z) > 0.0) return true;
+		if (this.detailScaleHeightmap.sample(x, z) > 0.1) return true;
 		return false;
 	}
 
@@ -41,7 +40,7 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		result += this.mountainsHeightmap.sample(x, z);
 
 		// detail
-		double scale = 1 + 8 * (this.detailScaleHeightmap.sample(x, z) + 1.0);
+		double scale = 1 + 9 * (this.detailScaleHeightmap.sample(x, z) + 1.0);
 		return result + scale * this.detailHeightmap.sample(x, z);
 	}
 
