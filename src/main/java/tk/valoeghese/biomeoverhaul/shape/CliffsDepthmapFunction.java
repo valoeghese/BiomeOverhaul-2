@@ -19,6 +19,6 @@ public class CliffsDepthmapFunction implements DepthmapFunction {
 	public double getHeight(int x, int y, int z) {
 		if (!NormalTypeHeightmap.INSTANCE.canAddCliffs(x, z)) return 0.0;
 		double sample = this.noise.sample(x, y, z);
-		return sample > 0.2D ? 3 * this.noise.sample(x * 4, z * 4) + 5 : 0;
+		return sample > 0.2D ? 3 * this.noise.sample(x * 3, z * 3) + 5 : 0;
 	}
 }
