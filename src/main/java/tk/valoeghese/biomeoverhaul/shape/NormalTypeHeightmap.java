@@ -12,15 +12,20 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		INSTANCE = this;
 		Random rand = new Random(seed);
 
-		this.continent = new OctaveOpenSimplexNoise(rand, 1, 1380.0, 30.0);
+		this.continent = new OctaveOpenSimplexNoise(rand, 1, 1580.0, 60.0);
 
-		this.mountains = new MountainsNoise(rand, 3, 580.0, 8.0, 100.0, 0.5, 0.4);
+		this.mountains = new MountainsNoise(rand, 3, 900.0, 8.0, 170.0, 0.5, 0.6);
 		this.mountainDetail = new OctaveOpenSimplexNoise(rand, 1, 12.0, 4.0);
 
 		this.hills = new OctaveOpenSimplexNoise(rand, 2, 270.0, 30.0, 10.0);
 
 		this.detail = new OctaveOpenSimplexNoise(rand, 3, 60.0);
 		this.scale = new OctaveOpenSimplexNoise(rand, 1, 256.0);
+	}
+
+	private static final double redistribute(double f) {
+		double c = (f - 70.0) / 120.0;
+		return 70.0 + 210.0 * (c / (1.0 + Math.abs(c)));
 	}
 
 	private final Noise
@@ -60,7 +65,10 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		result += scale * this.hills.sample(x, z);
 
 		// detail
-		return result + (1.0 + 9.0 * scale) * this.detail.sample(x, z);
+		result = result + (1.0 + 9.0 * scale) * this.detail.sample(x, z);
+
+		// redistribute
+		return redistribute(result);
 	}
 
 	private static double clamp(double value, double max) {

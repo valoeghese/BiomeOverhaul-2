@@ -27,7 +27,7 @@ final class FantasyWorldType {
 				.build();
 
 		LongFunction<Depthmap> shape = seed -> Depthmap.builder()
-				.baseHeight(50.0)
+				.baseHeight(SEA_LEVEL - 2.0)
 				.build();
 
 		SurfaceIdMap surfaceIdMap = SurfaceIdMap.builder()

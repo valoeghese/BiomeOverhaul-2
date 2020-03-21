@@ -3,18 +3,25 @@ package tk.valoeghese.biomeoverhaul.test;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.PixelWriter;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tk.valoeghese.biomeoverhaul.shape.NormalTypeHeightmap;
+import tk.valoeghese.worldcomet.api.noise.Noise;
+import tk.valoeghese.worldcomet.api.noise.OctaveOpenSimplexNoise;
 
+// Simulator of "normal terrain" heightmap. Produces a javafx image thereof.
 public final class Simulator extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	private static Noise beachNoise;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -25,7 +32,14 @@ public final class Simulator extends Application {
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
 
-		new NormalTypeHeightmap(new Random().nextLong());
+		long seed = new Random().nextLong();
+		new NormalTypeHeightmap(seed);
+		beachNoise = new OctaveOpenSimplexNoise(new Random(seed), 3, 300.0);
+
+		stage.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+			System.out.println((e.getScreenX() * SCALE) + ", " + (e.getScreenY() * SCALE));
+		});
+
 		drawTo(canvas.getGraphicsContext2D().getPixelWriter(), WIDTH, HEIGHT);
 		stage.show();
 	}
@@ -33,12 +47,13 @@ public final class Simulator extends Application {
 	private void drawTo(PixelWriter writer, int width, int height) {
 		for (int x = 0; x < width; ++x) {
 			for (int z = 0; z < height; ++z) {
-				writer.setColor(x, z, getColour(NormalTypeHeightmap.INSTANCE.getHeight(x * SCALE, z * SCALE)));
+				int beach = (int) (1.5 + 3 * beachNoise.sample(x * SCALE, z * SCALE));
+				writer.setColor(x, z, getColour(NormalTypeHeightmap.INSTANCE.getHeight(x * SCALE, z * SCALE), beach, x * SCALE, z * SCALE));
 			}
 		}
 	}
 
-	private Color getColour(double height) {
+	private Color getColour(double height, int beachHeightOffset, int x, int z) {
 		int h = (int) height + 63;
 
 		if (h > 204) {
@@ -47,9 +62,12 @@ public final class Simulator extends Application {
 			return Color.BLUE;
 		} else if (h < 63) {
 			return Color.CORNFLOWERBLUE;
-		} else if (h < 65) {
+		} else if (h <= 63 + beachHeightOffset) {
 			return Color.BEIGE;
 		} else if (h < 135) {
+			if (NormalTypeHeightmap.INSTANCE.isMountain(x, z)) {
+				return Color.GREEN;
+			}
 			return Color.LIMEGREEN;
 		} else if (h < 153) {
 			return Color.SADDLEBROWN;
@@ -59,5 +77,5 @@ public final class Simulator extends Application {
 	}
 
 	private static final int SCALE = 4;
-	private static final int WIDTH = 800, HEIGHT = 600;
+	private static final int WIDTH = 1000, HEIGHT = 800;
 }
