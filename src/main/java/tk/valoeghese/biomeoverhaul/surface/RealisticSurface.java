@@ -55,9 +55,15 @@ public class RealisticSurface extends Surface {
 
 			// update blocks
 			switch (y) {
+			case 204:
+				this.topBlock = rand.nextInt(3) > 0 ? STONE : SNOW_BLOCK;
+				this.underBlock = STONE;
+				break;
+			case 199:
+				this.topBlock = rand.nextInt(2) == 0 ? STONE : SNOW_BLOCK;
+				break;
 			case 192:
 				this.topBlock = rand.nextInt(3) == 0 ? STONE : SNOW_BLOCK;
-				this.underBlock = STONE;
 				break;
 			case 158:
 				this.topBlock = rand.nextInt(4) == 0 ? COBBLESTONE : STONE;
@@ -97,7 +103,7 @@ public class RealisticSurface extends Surface {
 				this.underBlock = DIRT;
 				this.underwaterBlock = SAND;
 				break;
-			case 62:
+			case 53:
 				this.underwaterBlock = GRAVEL;
 				break;
 			default:
