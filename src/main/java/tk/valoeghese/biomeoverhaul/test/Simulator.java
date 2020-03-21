@@ -52,7 +52,7 @@ public final class Simulator extends Application {
 		} else if (h < 135) {
 			return Color.LIMEGREEN;
 		} else if (h < 153) {
-			return Color.CHOCOLATE;
+			return Color.SADDLEBROWN;
 		} else {
 			return Color.DARKGREY;
 		}
