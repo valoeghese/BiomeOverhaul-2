@@ -3,6 +3,7 @@ package tk.valoeghese.biomeoverhaul.shape;
 import java.util.Random;
 
 import tk.valoeghese.biomeoverhaul.noise.MountainsNoise;
+import tk.valoeghese.biomeoverhaul.populator.normal.NormalPopulatorMaths;
 import tk.valoeghese.worldcomet.api.noise.Noise;
 import tk.valoeghese.worldcomet.api.noise.OctaveOpenSimplexNoise;
 import tk.valoeghese.worldcomet.api.terrain.function.HeightmapFunction;
@@ -21,6 +22,8 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 
 		this.detail = new OctaveOpenSimplexNoise(rand, 3, 60.0);
 		this.scale = new OctaveOpenSimplexNoise(rand, 1, 256.0);
+
+		new NormalPopulatorMaths(rand);
 	}
 
 	private static final double redistribute(double f) {
