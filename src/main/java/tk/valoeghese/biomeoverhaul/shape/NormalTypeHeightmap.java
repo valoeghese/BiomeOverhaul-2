@@ -34,7 +34,7 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 	hills,
 	detail, scale;
 
-	private double[] mountainNoiseCache = null;
+	private double[] mountainNoiseCache = new double[256];
 	private int cacheX, cacheZ = 0;
 
 	private double sampleMountain(int x, int z, boolean cache) {
