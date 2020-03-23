@@ -44,7 +44,7 @@ public final class Simulator extends Application {
 		stage.show();
 	}
 
-	private void drawTo(PixelWriter writer, int width, int height) {
+	private static void drawTo(PixelWriter writer, int width, int height) {
 		for (int x = 0; x < width; ++x) {
 			for (int z = 0; z < height; ++z) {
 				int beach = (int) (1.5 + 3 * beachNoise.sample(x * SCALE, z * SCALE));
@@ -53,8 +53,36 @@ public final class Simulator extends Application {
 		}
 	}
 
-	private Color getColour(double height, int beachHeightOffset, int x, int z) {
+	private static Color getColour(double height, int beachHeightOffset, int x, int z) {
 		int h = (int) height + 63;
+
+		if (h > 204) {
+			return Color.WHITE;
+		} else if (h < 63) {
+			return Color.rgb(10, 20, (int) map(h, 0, 63, 0, 0xED));
+		} else if (h <= 63 + beachHeightOffset) {
+			int c = (int) map(h, 63, 67, 0xc5, 0xf5);
+			return Color.rgb(c, c, 0);
+		} else if (h < 135) {
+			return Color.rgb(0x32, (int) map(h, 63, 135, 0x50, 0xb0), 0x32);
+		} else if (h < 153) {
+			return Color.rgb((int) map(h, 135, 153, 0x6b, 0xab), (int) map(h, 135, 153, 0x25, 0x65), 0x13);
+		} else {
+			return Color.gray(map(h, 153, 204, 0.4, 1.0));
+		}
+	}
+
+	private static double map(double value, double min, double max, double newmin, double newmax) {
+		value -= min;
+		value /= (max - min);
+		return newmin + value * (newmax - newmin);
+	}
+
+	@SuppressWarnings("unused")
+	private Color getColourOld(double height, int beachHeightOffset, int x, int z) {
+		int h = (int) height + 63;
+
+//		if ((h & 10) == 0) return Color.BLACK;
 
 		if (h > 204) {
 			return Color.WHITE;

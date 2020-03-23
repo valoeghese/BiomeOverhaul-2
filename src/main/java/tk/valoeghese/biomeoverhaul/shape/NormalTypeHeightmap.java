@@ -34,12 +34,44 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 	hills,
 	detail, scale;
 
+	private double[] mountainNoiseCache = null;
+	private int cacheX, cacheZ = 0;
+
+	private double sampleMountain(int x, int z, boolean cache) {
+		int chunkX = x >> 4, chunkZ = z >> 4;
+		boolean sample = this.cacheX == chunkX && this.cacheZ == chunkZ;
+
+		if (sample || this.mountainNoiseCache == null) {
+			if (cache) {
+				int chunkStartX = chunkX << 4, chunkStartZ = chunkZ << 4;
+
+				// generate cache
+				for (int xo = 0; xo < 16; ++xo) {
+					int xArrayLoc = xo << 4;
+					int totalX = chunkStartX + xo;
+
+					for (int zo = 0; zo < 16; ++zo) {
+						this.mountainNoiseCache[xArrayLoc + zo] = this.mountains.sample(totalX, chunkStartZ + zo);
+					}
+				}
+
+				// retrieve from cache
+				return this.mountainNoiseCache[((x & 15) << 4) + (z & 15)];
+			} else {
+				// sample
+				return this.mountains.sample(x, z);
+			}
+		} else {
+			return this.mountainNoiseCache[((x & 15) << 4) + (z & 15)];
+		}
+	}
+
 	public boolean isMountain(int x, int z) {
-		return this.mountains.sample(x, z) > 0.0;
+		return sampleMountain(x, z, false) > 0.0;
 	}
 
 	public boolean canAddCliffs(int x, int z) {
-		if (this.mountains.sample(x, z) > 0.0) return true;
+		if (sampleMountain(x, z, false) > 0.0) return true;
 		if (this.scale.sample(x, z) > 0.1) return true;
 		return false;
 	}
@@ -50,7 +82,7 @@ public final class NormalTypeHeightmap implements HeightmapFunction {
 		double result = this.continent.sample(x, z);
 
 		// mountains
-		double mountains = this.mountains.sample(x, z);
+		double mountains = sampleMountain(x, z, true);
 
 		if (mountains > -0.2) {
 			double mdetailEase = clamp(mountains + 0.2, 10.0) * 0.1;
