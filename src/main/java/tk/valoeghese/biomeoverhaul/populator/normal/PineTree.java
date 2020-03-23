@@ -13,6 +13,7 @@ public class PineTree extends BasicTree {
 		double temperature = NormalPopulatorMaths.INSTANCE.getTemperature(chunkX, chunkZ);
 
 		if (temperature > 0.6) {
+			double humidity 
 			int countModifier = NormalPopulatorMaths.INSTANCE.getCountModifier(surfaceProvider.getSurface(chunkX << 4, chunkZ << 4, this.heightSample));
 		}
 	}
