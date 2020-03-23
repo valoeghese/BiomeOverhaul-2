@@ -37,12 +37,16 @@ final class NormalWorldType {
 				.build();
 
 		SurfaceIdMap surfaceIdMap = SurfaceIdMap.builder()
+				.mapId(1, NormalSurfaces.SPARSE)
+				.mapId(2, NormalSurfaces.LIGHT_FOREST)
+				.mapId(3, NormalSurfaces.DENSE_FOREST)
 				.build(NormalSurfaces.DEFAULT);
 
-		FractalLongFunction ground = FractalLongFunction.builder((rand, x, z) -> 0)
+		FractalLongFunction ground = FractalLongFunction.builder((rand, x, z) -> rand.nextInt(4))
+				.scale(1000L, 4)
 				.build();
 
-		FractalLongFunction ocean = FractalLongFunction.builder((rand, x, z) -> 1)
+		FractalLongFunction ocean = FractalLongFunction.builder((rand, x, z) -> 0)
 				.build();
 
 		LongFunction<FractalSurfaceProvider> surfaceProviderFactory = FractalSurfaceProvider.factoryBuilder(ground)

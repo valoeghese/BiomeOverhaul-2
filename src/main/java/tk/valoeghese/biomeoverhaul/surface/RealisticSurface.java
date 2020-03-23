@@ -13,9 +13,9 @@ import tk.valoeghese.worldcomet.api.noise.Noise;
 import tk.valoeghese.worldcomet.api.noise.OctaveOpenSimplexNoise;
 import tk.valoeghese.worldcomet.api.surface.Surface;
 
-public class RealisticSurface extends Surface {
-	public RealisticSurface(Identifier id) {
-		super(id);
+public class RealisticSurface extends SwitchableSurface {
+	public RealisticSurface(int switchCode, Identifier id) {
+		super(switchCode, id);
 	}
 
 	private Noise beachNoise = null;

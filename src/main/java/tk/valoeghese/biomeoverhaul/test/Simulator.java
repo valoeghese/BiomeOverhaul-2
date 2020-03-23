@@ -3,7 +3,6 @@ package tk.valoeghese.biomeoverhaul.test;
 import java.util.Random;
 
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.PixelWriter;
