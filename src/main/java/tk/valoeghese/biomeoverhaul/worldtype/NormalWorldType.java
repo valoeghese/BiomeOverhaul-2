@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import tk.valoeghese.biomeoverhaul.shape.NormalTypeHeightmap;
 import tk.valoeghese.biomeoverhaul.surface.NormalSurfaces;
+import tk.valoeghese.biomeoverhaul.populator.NormalPopulators;
 import tk.valoeghese.biomeoverhaul.shape.CliffsDepthmapFunction;
 import tk.valoeghese.worldcomet.api.WorldComet;
 import tk.valoeghese.worldcomet.api.populator.FeaturePopulator;
@@ -56,6 +57,7 @@ final class NormalWorldType {
 		WorldPopulator populator = WorldPopulator.builder()
 				.addPopulator(FeaturePopulator.STRONGHOLD)
 				.enableStructure(Feature.STRONGHOLD, StructureGenSettings.vanillaSettings())
+				.addPopulator(NormalPopulators.PINE_TREE)
 				.build();
 
 		WorldCometChunkGeneratorType<?> cgt = WorldComet.createChunkGeneratorType(settings, shape, surfaceProviderFactory, populator);

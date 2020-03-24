@@ -10,11 +10,11 @@ import tk.valoeghese.worldcomet.api.surface.Surface;
 public final class NormalPopulatorMaths {
 	public NormalPopulatorMaths(Random rand) {
 		INSTANCE = this;
-		this.temperatureVariationNoise = new OctaveOpenSimplexNoise(rand, 1, 50.0 / 16.0);
+		this.temperatureVariationNoise = new OctaveOpenSimplexNoise(rand, 1, 180.0 / 16.0, 2.2);
 		this.humidityNoise = new OctaveOpenSimplexNoise(rand, 1, 360.0 / 16.0);
 		this.temperatureOffset = (double) (1100 - rand.nextInt(2200)) / 16.0;
 
-		this.temperature = new CoordinateDoubleCache((chunkx, chunkz) -> Math.abs(0.25 * this.temperatureVariationNoise.sample(chunkx, 0) + (chunkz + this.temperatureOffset) / EQUATOR_POLE_DIST));
+		this.temperature = new CoordinateDoubleCache((chunkx, chunkz) -> Math.abs(this.temperatureVariationNoise.sample(chunkx, 0) + (chunkz + this.temperatureOffset) / EQUATOR_POLE_DIST));
 		this.humidity = new CoordinateDoubleCache(this.humidityNoise::sample);
 	}
 
@@ -38,6 +38,6 @@ public final class NormalPopulatorMaths {
 		return this.humidity.get(chunkX, chunkZ);
 	}
 
-	private static final double EQUATOR_POLE_DIST = 1200.0;
+	private static final double EQUATOR_POLE_DIST = 1200.0 / 16.0;
 	public static NormalPopulatorMaths INSTANCE;
 }
