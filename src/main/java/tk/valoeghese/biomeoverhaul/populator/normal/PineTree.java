@@ -28,8 +28,7 @@ public class PineTree extends BasicTree {
 
 	@Override
 	protected int calculateHeight(BlockView world, Random rand, int x, int z) {
-		// TODO Auto-generated method stub
-		return 0;
+		return rand.nextInt(3) + 4;
 	}
 
 	@Override
@@ -39,8 +38,7 @@ public class PineTree extends BasicTree {
 	}
 
 	@Override
-	protected boolean generate(IWorld world, Random rand, SurfaceProvider surfaceProvider, int x, int y, int z,
-			int height) {
+	protected boolean generate(IWorld world, Random rand, SurfaceProvider surfaceProvider, int x, int y, int z, int height) {
 		// TODO Auto-generated method stub
 		return false;
 	}
